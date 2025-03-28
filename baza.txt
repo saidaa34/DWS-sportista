@@ -1,0 +1,347 @@
+Sifra baze: 
+xr1irfClkd8hXouoRybLYD2EuLr7Pb83
+
+create table country (
+    id_country serial not null,
+    name varchar(50) not null,
+    constraint pk_country primary key (id_country)
+);
+create table city (
+    id_city serial not null,
+    id_country int not null,
+    name varchar(50) not null,
+    constraint pk_city primary key (id_city),
+    constraint fk_country_city foreign key (id_country) references country (id_country) on delete cascade
+);
+
+insert into country (name) values ('Bosna i Hercegovina');
+--select * from country;
+
+INSERT INTO city (id_country, name)
+VALUES
+    (1, 'Sarajevo'),
+    (1, 'Banja Luka'),
+    (1, 'Tuzla'),
+    (1, 'Zenica'),
+    (1, 'Mostar'),
+    (1, 'Bihać'),
+    (1, 'Prijedor'),
+    (1, 'Brčko'),
+    (1, 'Doboj'),
+    (1, 'Cazin'),
+    (1, 'Sanski Most'),
+    (1, 'Travnik'),
+    (1, 'Livno'),
+    (1, 'Goražde'),
+    (1, 'Trebinje'),
+    (1, 'Široki Brijeg'),
+    (1, 'Konjic'),
+    (1, 'Gradačac'),
+    (1, 'Tešanj'),
+    (1, 'Čapljina'),
+    (1, 'Derventa'),
+    (1, 'Zavidovići'),
+    (1, 'Živinice'),
+    (1, 'Bugojno'),
+    (1, 'Kakanj'),
+    (1, 'Novi Travnik'),
+    (1, 'Jajce'),
+    (1, 'Bosanska Krupa'),
+    (1, 'Srebrenik'),
+    (1, 'Mrkonjić Grad'),
+    (1, 'Žepče'),
+    (1, 'Srebrenica'),
+    (1, 'Gračanica'),
+    (1, 'Lukavac'),
+    (1, 'Istočno Sarajevo'),
+    (1, 'Kalesija'),
+    (1, 'Kiseljak'),
+    (1, 'Sokolac'),
+    (1, 'Foča'),
+    (1, 'Jablanica'),
+    (1, 'Modriča'),
+    (1, 'Bijeljina'),
+    (1, 'Šekovići'),
+    (1, 'Velika Kladuša'),
+    (1, 'Rogatica'),
+    (1, 'Bileća'),
+    (1, 'Laktaši'),
+    (1, 'Tomislavgrad'),
+    (1, 'Kneževo'),
+    (1, 'Žabljak'),
+    (1, 'Prozor'),
+    (1, 'Čitluk'),
+    (1, 'Vitez'),
+    (1, 'Bosanska Dubica');
+/*
+select *
+from city;
+*/
+
+create table users (
+    id_user serial not null,
+    user_position varchar(20) not null default 'user', -- ako nam treba admin njega rucno dodajemo
+    email varchar(200) not null,
+    password text not null,
+    name varchar(50) not null,
+    surname varchar(60) not null,
+    date_of_birth date not null,
+    sex text check ( sex in ('female', 'male') ),
+    id_city int not null,
+    height decimal,
+    weight decimal,
+    bio text,
+    profile_photo bytea, -- dodati defaultnu sliku
+    no_of_games int not null default 0,
+    no_of_reports int not null default 0,
+    constraint pk_users primary key (id_user),
+    constraint fk_city foreign key (id_city) references city (id_city) on delete cascade
+);
+--select * from users;
+create table level (
+    id_level serial not null,
+    level_name varchar(50) not null,
+    constraint pk_level primary key (id_level)
+);
+insert into level (level_name) values
+                                   ('Početnik'), ('Srednji nivo'), ('Profesionalac');
+--select * from level;
+create table sport (
+    id_sport serial not null,
+    sport_name varchar(50) not null,
+    constraint pk_sport primary key (id_sport)
+);
+
+create table user_and_sport (
+    id_user int not null,
+    id_sport int not null,
+    id_level int not null,
+    constraint pk_user_and_sport primary key (id_user, id_sport),
+    constraint fk_user_user_and_sport foreign key (id_user) references users (id_user) on delete cascade ,
+    constraint fk_sport_user_and_sport foreign key (id_sport) references sport (id_sport) on delete cascade ,
+    constraint fk_level_user_and_sport foreign key (id_level) references level (id_level) on delete cascade
+);
+
+create table user_and_comment (
+    id_comment serial not null,
+    id_user_got_comment int not null,
+    id_user_who_commented int not null,
+    comment text not null,
+    constraint pk_user_and_comment primary key (id_comment),
+    constraint fk_got_user_and_comment foreign key (id_user_got_comment) references users (id_user) on delete cascade ,
+    constraint fk_sender_user_and_comment foreign key (id_user_who_commented) references users (id_user) on delete cascade
+);
+
+create table hall (
+    id_hall serial not null,
+    name varchar(200) not null,
+    id_city int not null,
+    address text not null,
+    start_of_working time not null default '00:00:00',
+    end_of_working time not null default '24:00:00',
+    description text,
+    no_of_players int not null,
+    dimensions_width decimal not null,
+    dimensions_height decimal not null,
+    constraint pk_hall primary key (id_hall),
+    constraint fk_city_hall foreign key (id_city) references city (id_city) on delete cascade
+);
+
+create table hall_photos (
+    id_hall serial not null,
+    photo bytea, -- dodati defaultnu
+    constraint fk_hall_photo foreign key (id_hall) references hall (id_hall) on delete cascade
+);
+
+create table hall_and_sports (
+    id_hall int not null,
+    id_sport int not null,
+    constraint pk_hall_and_sports primary key (id_hall, id_sport),
+    constraint fk_hall_hall_and_sports foreign key (id_hall) references hall (id_hall) on delete cascade,
+    constraint fk_sport_hall_and_sports foreign key (id_sport) references sport (id_sport) on delete cascade
+);
+
+create table ads (
+    id_ad serial not null,
+    id_user int not null,
+    id_hall int not null,
+    constraint pk_ads primary key (id_ad),
+    constraint fk_user_ads foreign key (id_user) references users (id_user) on delete cascade,
+    constraint fk_hall_ads foreign key (id_hall) references hall (id_hall) on delete cascade
+);
+
+create table reservations (
+    id_reservation serial not null,
+    id_ad int not null,
+    id_user_renter int not null,
+    id_sport int not null,
+    starting_time timestamp not null,
+    ending_time timestamp not null,
+    no_of_players int not null,
+    constraint pk_reservations primary key (id_reservation),
+    constraint fk_ad_reservations foreign key (id_ad) references ads (id_ad) on delete cascade ,
+    constraint fk_user_renter_reservations foreign key (id_user_renter) references users (id_user) on delete cascade,
+    constraint fk_sport_reservations foreign key (id_sport) references sport (id_sport) on delete cascade
+);
+
+create table reservations_and_users (
+    id_reservation int not null,
+    id_user_player int not null,
+    constraint pk_reservations_and_users primary key (id_reservation, id_user_player),
+    constraint fk_reservation_reservations_and_users foreign key (id_reservation) references reservations (id_reservation) on delete cascade ,
+    constraint fk_user_reservations_and_users foreign key (id_user_player) references users (id_user) on delete cascade
+);
+
+create table chat (
+    id_message int not null,
+    id_user_sender int not null,
+    id_user_recipient int not null,
+    message text not null,
+    sending_time timestamp not null default(CURRENT_TIMESTAMP),
+    seen boolean not null default (false),
+    constraint pk_chat primary key (id_message),
+    constraint fk_user_sender_chat foreign key (id_user_sender) references users (id_user) on delete cascade,
+    constraint fk_user_recipient_chat foreign key (id_user_recipient) references users (id_user) on delete cascade
+);
+
+-- dodatak bazi i modifikacije
+
+ALTER TABLE ads RENAME TO hall_ads;
+
+create table game (
+    id_game serial not null,
+    no_of_players int not null,
+    details text,
+    id_city int not null,
+    address varchar(200) not null,
+    id_sport int not null,
+    constraint pk_game primary key (id_game),
+    constraint fk_game_city foreign key (id_city) references city (id_city) on delete cascade,
+    constraint fk_game_sport foreign key (id_sport) references sport (id_sport) on delete cascade
+);
+
+drop table reservations_and_users;
+drop table reservations;
+
+
+create table reservations (
+    id_reservation serial not null,
+    id_hall_ad int not null,
+    id_game int not null,
+    id_user_renter int not null ,
+    starting_time timestamp not null ,
+    ending_time timestamp not null ,
+    constraint pk_reservations primary key (id_reservation),
+    constraint fk_reservations_hall_ad foreign key (id_hall_ad) references hall_ads (id_ad) on delete cascade,
+    constraint fk_reservations_game foreign key (id_game) references game (id_game) on delete cascade,
+    constraint fk_reservations_user_renter foreign key (id_user_renter) references users (id_user) on delete cascade
+);
+
+create table game_ads (
+    id_game_ad serial not null,
+    id_game int not null,
+    constraint pk_game_ads primary key (id_game_ad),
+    constraint fk_game_ads_game foreign key (id_game) references game (id_game) on delete cascade
+);
+
+ALTER TABLE reservations
+ADD CONSTRAINT unique_id_game_reservations UNIQUE (id_game);
+
+create table games_and_users (
+    id_game int not null ,
+    id_user_player int not null,
+    constraint pk_games_and_users primary key (id_game, id_user_player),
+    constraint fk_games_and_users_game foreign key (id_game) references game (id_game) on delete cascade,
+    constraint fk_games_and_users_user foreign key (id_user_player) references users (id_user) on delete cascade
+);
+
+-- dodana tabla:
+
+create table user_and_reports (
+    id_user_who_is_reported int,
+    id_user_who_reported int,
+    constraint pk_user_and_reports primary key (id_user_who_is_reported, id_user_who_reported),
+    constraint fk_reported_user foreign key (id_user_who_is_reported) references users (id_user) on delete cascade ,
+    constraint fk_user_who_reported foreign key (id_user_who_reported) references users (id_user) on delete cascade
+);
+
+-- dodana cijena terena
+ALTER TABLE hall
+ADD COLUMN price DECIMAL not null DEFAULT 0.00; 
+
+-- vrijeme kad je oglas dodan
+ALTER TABLE hall
+ADD COLUMN ad_added_date timestamp not null DEFAULT current_timestamp;
+
+-- nova kolona u user_and_comment:
+alter table user_and_comment add column time_of_comment timestamp default current_timestamp;
+
+-- podaci za sportove
+INSERT INTO public.sport (id_sport, sport_name) VALUES (1, 'Fudbal');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (2, 'Košarka');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (3, 'Rukomet');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (4, 'Odbojka');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (5, 'Hokej na ledu');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (6, 'Vaterpolo');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (7, 'Ragbi');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (8, 'Američki fudbal');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (9, 'Tenis');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (10, 'Plivanje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (11, 'Atletika');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (12, 'Jahanje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (13, 'Boks');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (14, 'Skijanje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (15, 'Streljaštvo');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (16, 'Šah');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (17, 'Badminton');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (18, 'Biciklizam');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (19, 'Borilački sportovi');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (20, 'Gimnastika');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (21, 'Hrvanje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (22, 'Jedrenje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (23, 'Karate');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (24, 'Kuglanje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (25, 'Pikado');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (26, 'Planinarenje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (27, 'Ronjenje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (28, 'Skateboarding');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (29, 'Snowboarding');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (30, 'Surfanje');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (31, 'Stoni tenis');
+INSERT INTO public.sport (id_sport, sport_name) VALUES (32, 'Ostalo');
+
+-- dodani reports/prijave za oglase
+CREATE TABLE hall_ads_reports (
+    id_hall INT NOT NULL,
+    id_user INT NOT NULL,
+    CONSTRAINT pk_hall_ads_reports PRIMARY KEY (id_hall, id_user),
+    CONSTRAINT fk_hall_ads_reports_hall FOREIGN KEY (id_hall) REFERENCES hall (id_hall) ON DELETE CASCADE,
+    CONSTRAINT fk_hall_ads_reports_user FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE
+);
+
+-- tabela za zvjezdice
+create table user_and_stars(
+	id_user_got_stars int not null,
+	id_user_who_rated int not null,
+	no_of_stars int not null default 0,
+	constraint pk_user_and_stars primary key (id_user_got_stars, id_user_who_rated),
+    constraint fk_got_user_and_star foreign key (id_user_got_stars) references users (id_user) on delete cascade ,
+    constraint fk_sender_user_and_star foreign key (id_user_who_rated) references users (id_user) on delete cascade
+);
+
+CREATE TABLE notifications (
+    id_notification SERIAL PRIMARY KEY,
+    from_user INTEGER NOT NULL,
+    to_user INTEGER NOT NULL,
+    message TEXT NOT NULL,
+    seen BOOLEAN DEFAULT FALSE,
+	is_accepted BOOLEAN DEFAULT NULL,
+	notification_type VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    CONSTRAINT fk_from_user FOREIGN KEY (from_user) REFERENCES users(id_user),
+    CONSTRAINT fk_to_user FOREIGN KEY (to_user) REFERENCES users(id_user)
+);
+
+ALTER TABLE game
+ADD COLUMN game_creator INT NOT NULL,
+ADD CONSTRAINT fk_game_creator FOREIGN KEY (game_creator) REFERENCES users(id_user) ON DELETE CASCADE;
