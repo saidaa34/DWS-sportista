@@ -1,0 +1,821 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+    --dark-color: #38393d;
+    --red-color: #f4222f;
+    --orange-color: #f5622b;
+    --gray-color: #ececec;
+    --white-color: #fff;
+}
+
+.before-hover::before {
+    content: " ";
+    position: absolute;
+    top: -5px;
+    border-radius: 15px;
+    width: 0%;
+    height: 5px;
+    background-color: var(--gray-color);
+    transition: width 0.3s ease;
+}
+
+.before-hover:hover::before {
+    width: 100%;
+}
+
+.triangle2 {
+    width: 0;
+    height: 0;
+    border-left: 800px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 400px solid #f5622b;
+    z-index: 0;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 0px solid transparent;
+    border-right: 800px solid transparent;
+    border-bottom: 400px solid #f5622b;
+    z-index: 0;
+}
+
+.rectangle {
+    width: 50px;
+    height: 400px;
+    background-color: var(--orange-color);
+}
+
+.rectangle2 {
+    width: 60px;
+    height: 450px;
+    background-color: var(--orange-color);
+}
+
+.rectangle3 {
+    width: 70px;
+    height: 400px;
+    background-color: var(--orange-color);
+}
+
+.hall-ads {
+    background-color: var(--dark-color);
+    color: var(--gray-color);
+}
+
+.hall-ads h2 {
+    padding-top: 150px;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 35px;
+}
+.hall-ads select,
+option {
+    background-color: var(--dark-color);
+}
+.hall-ads-submit-btn {
+    margin-bottom: 50px;
+}
+
+/* https://www.w3schools.com/css/tryit.asp?filename=trycss3_flexbox_image_gallery */
+.hall-ads .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.hall-ads .column {
+    flex: 25%;
+    max-width: 25%;
+    padding: 0 4px;
+}
+.hall-ads * {
+    box-sizing: border-box;
+}
+.hall-ads .column img {
+    margin-top: 8px;
+    vertical-align: middle;
+}
+.hall-ads .container {
+    position: relative;
+    width: 100%;
+}
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_image_overlay_fade */
+.hall-ads .image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.hall-ads .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: 0.5s ease;
+    background-color: var(--orange-color);
+}
+
+.hall-ads .container:hover .overlay {
+    opacity: 1;
+}
+.hall-ads .add-sports-btn {
+    background-color: var(--dark-color);
+    box-shadow: 0px 0px 5px var(--orange-color);
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+.hall-ads .add-sports-btn:hover {
+    box-shadow: 0px 0px 5px var(--gray-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.hall-ads .trash-img {
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.hall-ads .overlay .trash-img:hover {
+    cursor: pointer;
+}
+.hall-ads-modal {
+    height: fit-content;
+    background-color: #48494e;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+}
+.hall-ads-modal .content {
+    padding: 30px;
+}
+#popup-2 {
+    padding: 0;
+    border-radius: 20px;
+}
+.hall-ads-sports * {
+    padding: 0;
+}
+.sports-pop-up-selected-sport-btn {
+    background-color: var(--gray-color);
+    padding: 5px 12px;
+    margin: 5px 5px;
+    border-radius: 5px;
+}
+.sports-pop-up-selected-sport-btn:hover {
+    background-color: #adadad;
+    cursor: pointer;
+}
+.selected-sport {
+    background-color: #6b6b6b;
+    color: var(--gray-color);
+}
+.hall-ads-close-btn {
+    color: var(--white-color);
+    padding: 10px 15px;
+    right: 0;
+    position: absolute;
+    border-radius: 5px;
+}
+.hall-ads-close-btn:hover {
+    cursor: pointer;
+}
+.big-screen-sporst {
+    color: var(--dark-color);
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media (max-width: 800px) {
+    .hall-ads .column {
+        flex: 50%;
+        max-width: 50%;
+    }
+    #popup-2 {
+        width: 80%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media (max-width: 700px) {
+    .sports-pop-up-selected-sport-btn {
+        font-size: 18px;
+        padding: 2px 8px;
+        margin: 5px 5px;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hall-ads .column {
+        flex: 100%;
+        max-width: 100%;
+    }
+    .hall-ads input,
+    select,
+    option,
+    label,
+    .hall-ads-select {
+        width: 95%;
+        margin: auto;
+    }
+    .hall-ads .add-sports-btn,
+    #hall-ads-photo-input,
+    .selected-sport-text {
+        margin-left: 2%;
+    }
+    .hall-ads .image {
+        width: 80%;
+        margin: auto;
+    }
+    .hall-ads-photos {
+        margin-bottom: 0px;
+    }
+}
+
+/* dodala: */
+.profil-stavke {
+    margin-bottom: 10px;
+    padding-left: 40px;
+}
+
+.profilna-slika {
+    width: 250px;
+    height: 250px;
+    border-radius: 125px;
+}
+
+@media screen and (max-width: 1570px) {
+    .profil-prvi-blok {
+        margin-left: 150px;
+        margin-right: 20px;
+    }
+
+    .profil-drugi-blok {
+        margin-left: 20px;
+        margin-right: 150px;
+    }
+
+    .profil-prvi-blok-kom {
+        margin-left: auto;
+        margin-right: 100px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .profil-prvi-blok {
+        margin-left: 100px;
+        margin-right: 20px;
+    }
+
+    .profil-drugi-blok {
+        margin-left: 20px;
+        margin-right: 100px;
+    }
+
+    .profilna-slika {
+        width: 220px;
+        height: 220px;
+        border-radius: 110px;
+    }
+
+    .prvi-blok-tekst {
+        font-size: 16px;
+        padding: 10px 27px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .profil-prvi-blok {
+        margin-left: 80px;
+        margin-right: 15px;
+    }
+
+    .profil-drugi-blok {
+        margin-left: 15px;
+        margin-right: 80px;
+    }
+
+    .profilna-slika {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .prvi-blok-tekst {
+        font-size: 14px;
+        padding: 7px 20px;
+    }
+
+    .razgovor-ikonica {
+        width: 30px;
+    }
+
+    .profil-podaci {
+        flex-direction: column-reverse;
+    }
+
+    .profil-podaci-dijete {
+        padding-top: 0;
+        padding-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .profilna-slika {
+        width: 150px;
+        height: 150px;
+        border-radius: 75px;
+    }
+}
+
+.atletske-sposobnosti-tekst {
+    color: rgb(56, 57, 61);
+    opacity: 0.65;
+}
+.dodaj-novi-sport-dugme-registracija {
+    font-size: 15px;
+    border: #f5622b 1px solid;
+    box-shadow: #f5622b 0px 0px 5px;
+    margin-top: 10px;
+}
+
+.hall-ads-report-modal {
+    height: 300px;
+    color: var(--gray-color);
+    display: flex;
+    justify-content: center;
+    
+    text-align: center;
+}
+
+
+@media screen and (max-width: 1020px) {
+    .profil-kontainerr {
+        padding-top: 10px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .profil-kontainerr {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profil-prvi-blok {
+        margin: 0;
+    }
+
+    .profil-drugi-blok {
+        margin: 10px;
+        width: 550px;
+    }
+}
+
+@media screen and (max-width: 634px) {
+    .profil-prvi-blok-kom {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .profil-drugi-blok {
+        width: 480px;
+    }
+
+    .edit-form {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .profil-drugi-blok {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profil-drugi-blok {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .profil-drugi-blok {
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .profil-drugi-blok {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .profil-drugi-blok {
+        width: 250px;
+    }
+}
+
+
+.comments-container {
+    max-width: 1224px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.comments {
+    display: flex;
+    gap: 20px;
+}
+
+.comments-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profilna-slika-kom {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1255px) {
+    .comments-column {
+        align-items: center;
+        justify-content: center;
+        margin-inline: auto;
+    }
+
+    .comment {
+        width: 500px;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 1130px) {
+    .comments-row {
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .novi-komentar {
+        margin-left: 20%;
+    }
+
+    .comment {
+        margin: 20px;
+    }
+
+    .profil-prvi-blok-kom {
+        width: 300px;
+    }
+
+    .com-input-div {
+        justify-content: center;
+    }
+
+    .com-input {
+        width: 530px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .com-input {
+        width: 500px;
+    }
+
+    .dodaj-kom-btn {
+        height: 55px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .com-input {
+        width: 450px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .comments-container {
+        padding-top: 0;
+    }
+
+    .novi-komentar {
+        margin-left: 7%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .comment {
+        width: 450px;
+        margin-left: 9px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .comment {
+        flex-direction: column;
+        padding-right: 0;
+        width: 350px;
+    }
+
+    .comment-text {
+        justify-content: center;
+        margin: 10px 40px;
+        width: 250px;
+    }
+
+    .com-input {
+        margin-right: 0;
+        margin-bottom: 25px;
+        width: 350px;
+    }
+
+    .com-input-div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dodaj-kom-btn {
+        width: 155px;
+    }
+
+    .profil-prvi-blok-kom {
+        width: 250px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .comment {
+        width: 300px;
+        margin: 5px;
+    }
+
+    .comment-text {
+        width: 220px;
+    }
+
+    .com-input {
+        width: 300px;
+    }
+}
+
+.zvjezdice-input {
+    display: none;
+}
+
+.zvjezdice {
+    cursor: pointer;
+}
+
+.calendar-container {
+    height: fit-content;
+  }
+  
+  @media (max-width: 500px) {
+    .calendar-container {
+      height: 500px;
+    }
+  }
+  
+
+/* Admin: */
+
+.admin {
+    display: flex;
+    color: rgb(245, 245, 245);
+  }
+
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #818080;
+    border-right: 2px solid #F5622B;
+    box-shadow: 5px 0px 5px rgba(245, 98, 43, 0.5);
+    z-index: 1;
+    width: 200px;
+    height: 100%;
+    position: fixed; 
+    top: 0; 
+    left: 0;
+  }
+  
+  .sidebar .admin-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar nav ul li {
+    margin: 10px 0;
+  }
+  
+  .sidebar nav ul ul {
+    padding-left: 20px;
+  }
+  
+  .logout-button {
+    margin-top: 20px;
+    padding: 7px 15px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  
+  .main-admin {
+    flex: 1;
+    padding: 20px;
+    background-color: #D9D9D9;
+    overflow-y: auto;
+    margin-left: 200px;
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  .stat-box {
+    padding: 20px;
+    background-color: #fafafa;
+    text-align: center;
+    border: 1px solid #ddd;
+    height: 150px;
+    color: #000000;
+    border-radius: 33px;
+    justify-content: center;
+  }
+  
+  .charts {
+    display: flex;
+    justify-content: space-around;
+    color: #000000;
+    align-items: center;
+  }
+
+  .chart {
+    flex-basis: 45%;
+    padding: 20px;
+    background-color: #fafafa;
+    text-align: center;
+    border-radius: 53px;
+  }
+
+  .pie-chart {
+    display: flex;
+    justify-content: center;
+    height: 250px;
+  }
+
+  .hl-admin {
+    width: 85vw;
+    height: 85vh;
+  }
+
+  .all-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .kartica-admin {
+    width: 48%;
+    margin: 1%;
+  }
+
+  @media screen and (max-width: 1500px) {
+    .stat-box {
+        width: 30%;
+        justify-content: center;
+      }
+  }
+
+  @media (max-width: 1160px) {
+    .all-users {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .kartica-admin {
+      width: 550px
+    }
+  }
+
+  @media screen and (max-width: 1250px) {
+    .stats {
+      flex-direction: column;
+    }
+
+    .stat-box {
+      margin-bottom: 20px;
+      width: 50%;
+    }
+
+    .charts {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .chart {
+      margin-bottom: 20px;
+      width: 90%;
+    }
+  }
+  
+  @media screen and (max-width: 850px) {
+    .kartica-admin {
+        width: 350px;
+        padding: 5px;
+    }
+
+    .profil-podaci-admin {
+        flex-direction: column-reverse;
+    }
+
+    .profil-podaci-dijete-admin {
+        padding-top: 5px;
+    }
+  }
+
+.table-container-admin {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.user-table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px #f5622b;
+}
+
+.user-table thead {
+    background-color: #f5622b;;
+    color: #fff;
+}
+
+.user-table th, .user-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.user-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.user-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-admin ul li {
+    cursor: default;
+}
+
+.nav-admin ul .admin-nav-option:hover {
+    cursor: pointer;
+}
